@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "671804537123",
+    "project_id": "instagramer-6599e",
+    "storage_bucket": "instagramer-6599e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671804537123:android:b01b385962ea0ee399b496",
+        "android_client_info": {
+          "package_name": "com.example.instagramer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrmeIb-M0S654WVL5aFkoYk54eFgSd9Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671804537123:android:0af3f591e98019eb99b496",
+        "android_client_info": {
+          "package_name": "com.isntagramer.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrmeIb-M0S654WVL5aFkoYk54eFgSd9Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
