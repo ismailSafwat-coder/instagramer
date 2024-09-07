@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagramer/screens/login_screen.dart';
 
 import '../widgets/post_card.dart';
 
@@ -28,17 +30,11 @@ class _FeedPageScreanState extends State<FeedPageScrean> {
           centerTitle: false,
           actions: [
             IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_border),
-              color: Colors.black,
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.messenger_outline),
-              color: Colors.black,
-            ),
-            IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const LoginScreen()));
+              },
               icon: const Icon(Icons.logout),
               color: Colors.black,
             ),

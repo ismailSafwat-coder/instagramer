@@ -17,6 +17,7 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   File? _image;
+  bool isloading = false;
   String imageurl = '';
   final TextEditingController _captionController = TextEditingController();
   late double deviceHeight;
@@ -28,8 +29,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
     if (image != null) {
       setState(() {
         _image = File(image.path);
+        isloading = true;
       });
       imageurl = await StorageMethods().uploadimage(_image);
+      setState(() {
+        isloading = false;
+      });
     }
   }
 
@@ -127,23 +132,37 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     ],
                   ),
                 ),
-                FloatingActionButton(
-                  onPressed: () async {
-                    if (_image != null) {
-                      FirestoreMethods().uploadPost(data['photoUrl'],
-                          _captionController.text, data['username'], imageurl);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Homepage()));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please pick an image")),
-                      );
-                    }
-                  },
-                  child: const Icon(Icons.send),
-                ),
+                isloading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : FloatingActionButton(
+                        onPressed: () async {
+                          if (_image != null) {
+                            setState(() {
+                              isloading = true;
+                            });
+                            await FirestoreMethods().uploadPost(
+                                data['photoUrl'],
+                                _captionController.text,
+                                data['username'],
+                                imageurl);
+                            setState(() {
+                              isloading = false;
+                            });
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Homepage()));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Please pick an image")),
+                            );
+                          }
+                        },
+                        child: const Icon(Icons.send),
+                      ),
               ],
             ),
           );

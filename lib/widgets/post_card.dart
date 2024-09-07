@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:instagramer/resources/firestore_methods.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/like_provider.dart';
@@ -65,6 +66,24 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               Text(username),
+              const Spacer(),
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: Colors.black,
+                ),
+                itemBuilder: (context) => [
+                  const PopupMenuItem(
+                    value: 'delete',
+                    child: Text('Delete'),
+                  )
+                ],
+                onSelected: (value) async {
+                  if (value == 'delete') {
+                    await FirestoreMethods().deletepost(postid);
+                  }
+                },
+              )
             ],
           ),
           const SizedBox(

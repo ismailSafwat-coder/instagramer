@@ -39,8 +39,8 @@ class _ProfileScreanState extends State<ProfileScrean> {
         isfollowed = (userinformation['followers'] as List)
             .contains(FirebaseAuth.instance.currentUser!.uid);
 
-        List followers = (userinformation['followers']);
-        List following = (userinformation['following']);
+        followers = (userinformation['followers']);
+        following = (userinformation['following']);
 
         isloadinguserinformation = true;
       });

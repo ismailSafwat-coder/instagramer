@@ -69,9 +69,9 @@ class FirestoreMethods {
   Future follow(String uid, String followingId) async {
     try {
       var doc = await _firebaseFirestore.collection('users').doc(uid).get();
-      var userdata = doc.data()!;
-      List following = userdata['following'];
-      if (following.contains(uid)) {
+
+      List following = doc['following'];
+      if (following.contains(followingId)) {
         await _firebaseFirestore.collection('users').doc(followingId).update({
           'followers': FieldValue.arrayRemove([uid])
         });
@@ -89,5 +89,9 @@ class FirestoreMethods {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future deletepost(String postid) async {
+    await _firebaseFirestore.collection('posts').doc(postid).delete();
   }
 }

@@ -79,7 +79,7 @@ class _HomepageState extends State<Homepage> {
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'home',
+            label: '',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -90,7 +90,7 @@ class _HomepageState extends State<Homepage> {
             label: '',
           ),
           const BottomNavigationBarItem(
-            icon: Icon(Icons.video_library_outlined),
+            icon: Icon(Icons.bookmark),
             label: '',
           ),
           BottomNavigationBarItem(
