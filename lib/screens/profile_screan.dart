@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagramer/resources/firestore_methods.dart';
+
+import '../resources/storage_methods.dart';
 
 class ProfileScrean extends StatefulWidget {
   final uid;
@@ -19,6 +24,9 @@ class _ProfileScreanState extends State<ProfileScrean> {
   bool isfollowed = false;
   List followers = [];
   List following = [];
+  File? _image;
+  bool isloading = false;
+  String imageurl = '';
   loaduserdata() async {
     try {
       DocumentSnapshot doc = await FirebaseFirestore.instance
@@ -48,6 +56,21 @@ class _ProfileScreanState extends State<ProfileScrean> {
       print(e.toString());
       setState(() {
         isloadinguserinformation = true;
+      });
+    }
+  }
+
+  Future _pickImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _image = File(image.path);
+        isloading = true;
+      });
+      imageurl = await StorageMethods().uploadimage(_image);
+      setState(() {
+        isloading = false;
       });
     }
   }
@@ -96,8 +119,13 @@ class _ProfileScreanState extends State<ProfileScrean> {
                             ),
                             FirebaseAuth.instance.currentUser!.uid == widget.uid
                                 ? ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text('edit profiel'))
+                                    onPressed: () async {
+                                      await _pickImage();
+                                      FirestoreMethods().updateimage(imageurl);
+                                      await loaduserdata();
+                                      setState(() {});
+                                    },
+                                    child: const Text('change image'))
                                 : isfollowed
                                     ? ElevatedButton(
                                         onPressed: () async {

@@ -94,4 +94,16 @@ class FirestoreMethods {
   Future deletepost(String postid) async {
     await _firebaseFirestore.collection('posts').doc(postid).delete();
   }
+
+  Future updateimage(String imageurl) async {
+    var uid = FirebaseAuth.instance.currentUser!.uid;
+    if (imageurl == '') {
+      return null;
+    } else {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .update({'photoUrl': imageurl});
+    }
+  }
 }
