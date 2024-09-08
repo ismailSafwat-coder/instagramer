@@ -1,6 +1,6 @@
 # instagramer
 
-A new Flutter project.
+#Instagramer is a social media app inspired by Instagram, built with Flutter. It allows users to share photos, follow others, and explore a personalized feed. While offering a simplified experience, it maintains core social interactions, including posts, followers, and following
 
 ## Getting Started
 
